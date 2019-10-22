@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <conio.h>
 //Configuração das dimensões da matriz principal do jogo
-#define COLUMNS 20
+#define COLUMNS 15
 #define ROWS 25
 
 
@@ -13,7 +13,11 @@
 #define DOWN 73
 #define DOWN_C 53
 
+typedef struct{
+	int i;
+	int j;
+	int random;
+}Vehicle;
 
-
-
+void init(char matrix[ROWS][COLUMNS]);
 void printMatrix(char matrix[ROWS][COLUMNS]);
