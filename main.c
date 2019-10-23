@@ -4,19 +4,22 @@
 
 int main(){
 	Vehicle car;
+	car.i = ROWS - 2;
+	car.j = COLUMNS / 2;
     char matrix[ROWS][COLUMNS];
 	int speedControl,runTime;
-	speedControl = 6000;
+	speedControl = 90000;
 	init(matrix);
 	ShowConsoleCursor(0);
-	for(runTime=0;runTime<100;runTime++){  
-       // if(runTime==speedControl){
+	drawCar(matrix,car);
+	for(runTime=0;runTime<=speedControl;runTime++){  
+       //if(runTime==speedControl){
 
 			gotoxy(0,0);
 			printMatrix(matrix);
-			
+			runTime = 0;
 		//}	
-		runTime = 0;
+		
 	}
 	
 	

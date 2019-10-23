@@ -3,7 +3,7 @@
 #include <conio.h>
 //Configuração das dimensões da matriz principal do jogo
 #define COLUMNS 15
-#define ROWS 25
+#define ROWS 45
 
 
 #define LEFT 97
