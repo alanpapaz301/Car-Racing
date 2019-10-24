@@ -3,7 +3,7 @@
 #include <conio.h>
 //Configuração das dimensões da matriz principal do jogo
 #define COLUMNS 15
-#define ROWS 45
+#define ROWS 25
 
 
 #define LEFT 97
@@ -13,6 +13,10 @@
 #define DOWN 73
 #define DOWN_C 53
 
+
+#define CARLEFT 4
+#define CARRIGHT 10
+#define CARMID COLUMNS/2
 typedef struct{
 	int i;
 	int j;
@@ -20,4 +24,7 @@ typedef struct{
 }Vehicle;
 
 void init(char matrix[ROWS][COLUMNS]);
-void printMatrix(char matrix[ROWS][COLUMNS]);
+void printMatrix(char matrix[ROWS][COLUMNS],int aux);
+void drawCar(char matrix[ROWS][COLUMNS],Vehicle car);
+void eraseCar(char matrix[ROWS][COLUMNS],Vehicle car);
+void eraseRoad(char matrix[ROWS][COLUMNS]);

@@ -4,23 +4,26 @@
 
 int main(){
 	Vehicle car;
-	car.i = ROWS - 2;
-	car.j = COLUMNS / 2;
+	car.i = ROWS - 1;
+	car.j =CARMID;
+	char dir = ' ';
     char matrix[ROWS][COLUMNS];
 	int speedControl,runTime;
+	int control = 1;
 	speedControl = 90000;
 	init(matrix);
 	ShowConsoleCursor(0);
-	drawCar(matrix,car);
+	
 	for(runTime=0;runTime<=speedControl;runTime++){  
        //if(runTime==speedControl){
-
+			drawCar(matrix,car);
 			gotoxy(0,0);
-			printMatrix(matrix);
-			runTime = 0;
+			printMatrix(matrix,control);
+			eraseRoad(matrix);
+			control++;
+			//runTime = 0;
 		//}	
 		
-	}
 	
 	
 	
@@ -30,22 +33,24 @@ int main(){
 	
 	
 	
-	/*
+	
+	
 	//leitura da tecla pressionada
     if(kbhit()) dir=getch();
     //movimento a esquerda
-    if(matrix[car.i][car.j-car.width/2]!=symbol && car.j-car.width/2>1){
-        if(dir == LEFT | dir == LEFT_C){
-            car.j--;
+    if(dir == LEFT | dir == LEFT_C){
+		printf("LEFT!!");
+		eraseCar(matrix,car);
+            car.j = CARLEFT;
             dir = ' ';
-        }
     }
     //movimento a direita     
-    if(matrix[car.i][car.j+car.width/2] !=symbol && car.j+car.width/2<COLUMNS-2){
-        if(dir == RIGHT | dir== RIGHT_C){
-            car.j++;
+    if(dir == RIGHT | dir== RIGHT_C){
+            printf("RIGHT!!");
+			eraseCar(matrix,car);
+			car.j = CARRIGHT;
             dir = ' ';
-		}   
+		   
 	}
     //aumenta a velocidade da desçida da peça   
     if(dir == DOWN |dir == DOWN_C){
@@ -55,7 +60,8 @@ int main(){
         speedControl = speedControlBackup;
 		
     }
-	*/
+	}
+	
 
 
 
