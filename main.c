@@ -1,12 +1,13 @@
 #include "display.h"
 #include "carRacing.h"
-
+#include <time.h>
 
 int main(){
+	srand(time(0));
 	Vehicle car;
 	Vehicle enemyCar1;
-	enemyCar1.i = rand() % 15;
-	enemyCar1.j = rand() % 2;
+	enemyCar1.i = 4;
+	enemyCar1.j = rand() % 100;
 	car.i = ROWS - 1;
 	car.j =CARMID;
 	char dir = ' ';
@@ -17,7 +18,7 @@ int main(){
 	speedControl = 5;
 	init(matrix);
 	ShowConsoleCursor(0);
-	srand(time(0));
+	
 	for(runTime=0;runTime<=speedControl;runTime++){ 
 		drawCar(matrix,car);
 		enemyCar1 = drawEnemyCars(matrix,enemyCar1);
@@ -28,8 +29,13 @@ int main(){
 	   if(runTime==speedControl){
 			control++;
 			runTime = 0;
-			eraseEnemyCar(matrix,enemyCar1);
+			eraseEnemyCar(matrix,enemyCar1,0);
 			if(enemyCar1.i < ROWS - 1)enemyCar1.i++;
+			if(enemyCar1.i == 24){
+				eraseEnemyCar(matrix,enemyCar1,1);
+				enemyCar1.j = rand() % 100;
+				enemyCar1.i = 5;
+			}
 			
 			
 		}	

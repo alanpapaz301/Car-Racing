@@ -32,25 +32,27 @@ void drawCar(char matrix[ROWS][COLUMNS],Vehicle car){
 }
 Vehicle drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car){
 
-	if(car.j <=1)car.j = CARLEFT;
-	if(car.j == 2)car.j = CARRIGHT;
+	if(car.j <=50)car.j = CARLEFT;
+	if(car.j >=51)car.j = CARRIGHT;
 
-		matrix[car.i][car.j+1] = 178;
-		matrix[car.i][car.j+2] = 178;
-		matrix[car.i][car.j-1] = 178;
-		matrix[car.i][car.j-2] = 178;
-		matrix[car.i-1][car.j] = 178;
+	if(car.i - 3 >= 0)matrix[car.i-3][car.j] = 178;
+	if(car.i - 2 >= 0){
 		matrix[car.i-2][car.j] = 178;
 		matrix[car.i-2][car.j+1] = 178;
 		matrix[car.i-2][car.j+2] = 178;
 		matrix[car.i-2][car.j-1] = 178;
 		matrix[car.i-2][car.j-2] = 178;
-		matrix[car.i-3][car.j] = 178;
-		
-		return car;
+	}
+	if(car.i - 1 >= 0)matrix[car.i-1][car.j] = 178;
+	matrix[car.i][car.j+1] = 178;
+	matrix[car.i][car.j+2] = 178;
+	matrix[car.i][car.j-1] = 178;
+	matrix[car.i][car.j-2] = 178;
+	return car;
 	
 }
-void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car){
+void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car,int control){
+	if(control == 0){	
 		matrix[car.i][car.j+1] = ' ';
 		matrix[car.i][car.j+2] = ' ';
 		matrix[car.i][car.j-1] = ' ';
@@ -62,6 +64,22 @@ void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car){
 		matrix[car.i-2][car.j-1] = ' ';
 		matrix[car.i-2][car.j-2] = ' ';
 		matrix[car.i-3][car.j] = ' ';
+	}
+	if(control == 1){
+		if(car.i - 3 >= 25)matrix[car.i-3][car.j] = ' ';
+		if(car.i - 2 >= 25){
+			matrix[car.i-2][car.j] = ' ';
+			matrix[car.i-2][car.j+1] = ' ';
+			matrix[car.i-2][car.j+2] = ' ';
+			matrix[car.i-2][car.j-1] = ' ';
+			matrix[car.i-2][car.j-2] = ' ';
+		}
+		if(car.i - 1 >= 25)matrix[car.i-1][car.j] = ' ';
+		matrix[car.i][car.j+1] = ' ';
+		matrix[car.i][car.j+2] = ' ';
+		matrix[car.i][car.j-1] = ' ';
+		matrix[car.i][car.j-2] = ' ';
+	}	
 }
 
 
