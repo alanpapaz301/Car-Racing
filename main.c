@@ -6,8 +6,8 @@ int main(){
 	srand(time(0));
 	Vehicle car;
 	Vehicle enemyCar1;
-	enemyCar1.i = 4;
-	enemyCar1.j = rand() % 100;
+	enemyCar1.i = 0;
+	//enemyCar1.j = rand() % 100;
 	car.i = ROWS - 1;
 	car.j =CARMID;
 	char dir = ' ';
@@ -25,17 +25,14 @@ int main(){
 		gotoxy(0,0);
 		printMatrix(matrix,control);
 		eraseRoad(matrix);
+
        //Velocidade da animação
 	   if(runTime==speedControl){
 			control++;
 			runTime = 0;
-			eraseEnemyCar(matrix,enemyCar1,0);
-			if(enemyCar1.i < ROWS - 1)enemyCar1.i++;
-			if(enemyCar1.i == 24){
-				eraseEnemyCar(matrix,enemyCar1,1);
-				enemyCar1.j = rand() % 100;
-				enemyCar1.i = 5;
-			}
+			if(enemyCar1.i>=2)eraseCar(matrix,enemyCar1);
+			if(enemyCar1.i < ROWS + 1)enemyCar1.i++;
+			else enemyCar1.i = 0;
 			
 			
 		}	

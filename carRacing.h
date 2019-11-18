@@ -4,7 +4,7 @@
 //Configuração das dimensões da matriz principal do jogo
 #define COLUMNS 15
 #define ROWS 25
-
+#define EMPTY 32
 
 #define LEFT 97
 #define RIGHT 100
