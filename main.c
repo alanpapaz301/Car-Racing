@@ -10,23 +10,30 @@ int main(){
 	//enemyCar1.j = rand() % 100;
 	car.i = ROWS - 1;
 	car.j =CARMID;
-	char dir = ' ';
+	char dir = EMPTY;
     char matrix[ROWS][COLUMNS];
-	int speedControl,runTime;
+	int speedControl,runTime,turbo;
 	int control = 1;
-	int speedControlBackup;
-	speedControl = 5;
+	speedControl = 10;
 	init(matrix);
 	ShowConsoleCursor(0);
 	
 	for(runTime=0;runTime<=speedControl;runTime++){ 
+		fflush(stdin);
+		//Carro do jogador
 		drawCar(matrix,car);
+		//Carro oponente
 		enemyCar1 = drawEnemyCars(matrix,enemyCar1);
+		
 		gotoxy(0,0);
 		printMatrix(matrix,control);
 		eraseRoad(matrix);
-
-       //Velocidade da animação
+		
+		if(turbo == 1)speedControl = 2;
+		//else speedControl = 10;
+	   
+	   
+	   //Velocidade da animação
 	   if(runTime==speedControl){
 			control++;
 			runTime = 0;
@@ -40,48 +47,31 @@ int main(){
 
 		//leitura da tecla pressionada
 		if(kbhit()) dir=getch();
+		
 		//movimento a esquerda
 		if(dir == LEFT | dir == LEFT_C){
-			printf("LEFT!!");
+			//printf("LEFT!!");
 			eraseCar(matrix,car);
-				car.j = CARLEFT;
-				dir = ' ';
+			car.j = CARLEFT;
+			dir = EMPTY;
 		}
 		//movimento a direita     
-		if(dir == RIGHT | dir== RIGHT_C){
-				printf("RIGHT!!");
+		if(dir == RIGHT | dir == RIGHT_C){
+				//printf("RIGHT!!");
 				eraseCar(matrix,car);
 				car.j = CARRIGHT;
-				dir = ' ';
+				dir = EMPTY;
 			   
 		}
-		//aumenta a velocidade da desçida da peça   
-		if(dir == 's' |dir == 'S'){
-			printf("turbo");
-			speedControlBackup = speedControl;
-			speedControl = 1;
-			dir = ' ';           
-			speedControl = speedControlBackup;
-			
+		
+		/*
+		if(dir == 's' | dir == 'S'){
+			turbo = 1;
+			//dir = EMPTY;
 		}
+		*/
 	}
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
