@@ -23,10 +23,10 @@ typedef struct{
 	int random;
 }Vehicle;
 
+
 void init(char matrix[ROWS][COLUMNS]);
 void printMatrix(char matrix[ROWS][COLUMNS],int aux);
 void drawCar(char matrix[ROWS][COLUMNS],Vehicle car);
-Vehicle drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseCar(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car,int control);
 void eraseRoad(char matrix[ROWS][COLUMNS]);

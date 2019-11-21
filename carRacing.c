@@ -1,12 +1,29 @@
 #include "carRacing.h"
 
-void runTime(char matrix[ROWS][COLUMNS],int speedControl){
+
+
+void menu(){
+	int option;
 	
+	
+	printf("1- Novo jogo\n");
+	printf("2- High scores\n");
+	printf("3- Sair\n");
+	scanf("%d",&option);
+	switch(option){
+		case 1:break;
+		case 2:printf("NOTHING HERE\n");break;
+		case 3:exit(0);break;
+		default:printf("ERROR ERROR ERROR \n");break;
+	}
+	
+}
+void highScores(){
+	printf("NOTHING TO SEE HERE\n");
 	
 	
 	
 }
-
 void init(char matrix[ROWS][COLUMNS]){
 	int i,j;
 	int x = 2;
@@ -50,7 +67,7 @@ void eraseRoad(char matrix[ROWS][COLUMNS]){
 	int i,j;
 	for(i = 0; i<ROWS;i++){
 		for(j=0; j<=COLUMNS-1; j++){
-			matrix[i][1] = ' ';
+			matrix[i][1] = EMPTY;
 			matrix[i][COLUMNS-2] = EMPTY;
 		}
 	}
@@ -70,28 +87,40 @@ void drawCar(char matrix[ROWS][COLUMNS],Vehicle car){
 }
 Vehicle drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car){
 
-	//if(car.j <=50)car.j = CARLEFT;
-	//if(car.j >=51)car.j = CARRIGHT;
-	car.j = CARLEFT;
-
-	if(car.i - 3 >= 1)matrix[car.i-3][car.j] = 178;
-	if(car.i - 2 >= 1){
+	//Inicializa a posição semi-randomica dos carros inimigos
+	if (car.i == ROWS + 1){
+		int i,x;
+		int sideRand = rand()%100;
+		if(sideRand<=50)car.j = CARLEFT;
+		if(sideRand>=51)car.j = CARRIGHT;
+		
+		do{
+		int randPos = rand()%15;
+		car.i = randPos - randPos * 2;
+		}while(matrix[car.i][CARLEFT-2] !=EMPTY | matrix[car.i][CARRIGHT+2] !=EMPTY);
+	}
+	//-------------------------------------------------------
+	
+	//Desenho dos carros inimigos a partir do topo da matriz
+	if(car.i - 3 >= 0)matrix[car.i-3][car.j] = 178;
+	if(car.i - 2 >= 0){
 		matrix[car.i-2][car.j] = 178;
 		matrix[car.i-2][car.j+1] = 178;
 		matrix[car.i-2][car.j+2] = 178;
 		matrix[car.i-2][car.j-1] = 178;
 		matrix[car.i-2][car.j-2] = 178;
 	}
-	if(car.i - 1 >= 1)matrix[car.i-1][car.j] = 178;
-	matrix[car.i][car.j+1] = 178;
-	matrix[car.i][car.j+2] = 178;
-	matrix[car.i][car.j-1] = 178;
-	matrix[car.i][car.j-2] = 178;
+	if(car.i - 1 >= 0)matrix[car.i-1][car.j] = 178;
+	if(car.i - 1 >= 0){
+		matrix[car.i][car.j+1] = 178;
+		matrix[car.i][car.j+2] = 178;
+		matrix[car.i][car.j-1] = 178;
+		matrix[car.i][car.j-2] = 178;
+	}
+	//------------------------------------------------------
 	
 	
-	
-	
-	
+	//Apaga os carros inimigos durante a animação de movimento
 	if(car.i - 3 == ROWS)matrix[car.i-3][car.j] = EMPTY;
 	if(car.i - 2 ==ROWS){
 		matrix[car.i-2][car.j] = EMPTY;
@@ -107,7 +136,7 @@ Vehicle drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car){
 		matrix[car.i][car.j-1] = EMPTY;
 		matrix[car.i][car.j-2] = EMPTY;
 	}
-	
+	//---------------------------------------------------------
 	
 	
 	return car;
