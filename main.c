@@ -19,6 +19,7 @@ int main(){
 	int speedControl,runTime,turbo;
 	int control = 1;
 	int gameOver = 0;
+	int enemyY[3];
 	speedControl = 5;
 	init(matrix);
 	ShowConsoleCursor(0);
@@ -31,9 +32,9 @@ int main(){
 		drawCar(matrix,car);
 		//------------------------------------------
 		//CarroS oponenteS
-		enemyCar1 = drawEnemyCars(matrix,enemyCar1);
-		enemyCar2 = drawEnemyCars(matrix,enemyCar2);
-		enemyCar3 = drawEnemyCars(matrix,enemyCar3);
+		enemyCar1 = drawEnemyCars(matrix,enemyCar1,enemyY,0);
+		enemyCar2 = drawEnemyCars(matrix,enemyCar2,enemyY,1);
+		enemyCar3 = drawEnemyCars(matrix,enemyCar3,enemyY,2);
 		//------------------------------------------
 		
 		
@@ -51,6 +52,7 @@ int main(){
 			runTime = 0;
 			if(enemyCar1.i>=2)eraseCar(matrix,enemyCar1);
 			if(enemyCar1.i < ROWS + 2)enemyCar1.i++;
+			
 			
 			if(enemyCar2.i>=2)eraseCar(matrix,enemyCar2);
 			if(enemyCar2.i < ROWS + 2)enemyCar2.i++;
