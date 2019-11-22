@@ -54,10 +54,10 @@ int main(){
 			if(enemyCar1.i < ROWS + 2)enemyCar1.i++;
 			
 			
-			if(enemyCar2.i>=2)eraseCar(matrix,enemyCar2);
+			if(enemyCar2.i>=2 && enemyCar2.i<ROWS+2)eraseCar(matrix,enemyCar2);
 			if(enemyCar2.i < ROWS + 2)enemyCar2.i++;
 			
-			if(enemyCar3.i>=2)eraseCar(matrix,enemyCar3);
+			if(enemyCar3.i>=2 && enemyCar3.i<ROWS+2)eraseCar(matrix,enemyCar3);
 			if(enemyCar3.i < ROWS + 2)enemyCar3.i++;
 			
 		}	

@@ -106,20 +106,22 @@ Vehicle drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car,int enemyY[3],int i
 	//-------------------------------------------------------
 	
 	//Desenho dos carros inimigos a partir do topo da matriz
-	if(car.i - 3 >= 0)matrix[car.i-3][car.j] = 178;
-	if(car.i - 2 >= 0){
-		matrix[car.i-2][car.j] = 178;
-		matrix[car.i-2][car.j+1] = 178;
-		matrix[car.i-2][car.j+2] = 178;
-		matrix[car.i-2][car.j-1] = 178;
-		matrix[car.i-2][car.j-2] = 178;
-	}
-	if(car.i - 1 >= 0)matrix[car.i-1][car.j] = 178;
-	if(car.i - 1 >= 0){
-		matrix[car.i][car.j+1] = 178;
-		matrix[car.i][car.j+2] = 178;
-		matrix[car.i][car.j-1] = 178;
-		matrix[car.i][car.j-2] = 178;
+	if(car.i < ROWS + 1){
+		if(car.i - 3 >= 0)matrix[car.i-3][car.j] = 178;
+		if(car.i - 2 >= 0){
+			matrix[car.i-2][car.j] = 178;
+			matrix[car.i-2][car.j+1] = 178;
+			matrix[car.i-2][car.j+2] = 178;
+			matrix[car.i-2][car.j-1] = 178;
+			matrix[car.i-2][car.j-2] = 178;
+		}
+		if(car.i - 1 >= 0)matrix[car.i-1][car.j] = 178;
+		if(car.i - 1 >= 0){
+			matrix[car.i][car.j+1] = 178;
+			matrix[car.i][car.j+2] = 178;
+			matrix[car.i][car.j-1] = 178;
+			matrix[car.i][car.j-2] = 178;
+		}
 	}
 	//------------------------------------------------------
 	
