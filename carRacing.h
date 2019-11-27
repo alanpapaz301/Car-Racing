@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#include <time.h>
 //Configuração das dimensões da matriz principal do jogo
 #define COLUMNS 15
 #define ROWS 25
@@ -13,7 +14,7 @@
 #define DOWN 73
 #define DOWN_C 53
 
-
+#define END ROWS + 1
 #define CARLEFT 4
 #define CARRIGHT 10
 #define CARMID COLUMNS/2
@@ -27,6 +28,7 @@ typedef struct{
 void init(char matrix[ROWS][COLUMNS]);
 void printMatrix(char matrix[ROWS][COLUMNS],int aux);
 void drawCar(char matrix[ROWS][COLUMNS],Vehicle car);
+Vehicle genEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car,int enemyY[3],int index);
 Vehicle drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car,int enemyY[3],int index);
 void eraseCar(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car,int control);

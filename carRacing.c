@@ -85,25 +85,36 @@ void drawCar(char matrix[ROWS][COLUMNS],Vehicle car){
 		matrix[car.i-2][car.j-2] = 178;
 		matrix[car.i-3][car.j] = 178;	
 }
+Vehicle genEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car,int enemyY[3],int index){
+	srand(time(0));
+	int randPos;
+	int sideRand;
+	//Inicializa a posição semi-randomica dos carros inimigos
+			sideRand = rand()%100;
+			if(sideRand<=50)car.j = CARLEFT;
+			if(sideRand>=51)car.j = CARRIGHT;
+			if(index == 0){
+				//randPos = rand()%5;
+				car.i = - 10;
+				enemyY[index] = car.i;
+			}
+			if (index > 0){ 
+				car.i = enemyY[index - 1] - 12;
+				enemyY[index] = car.i;
+			}
+			printf("vetorY: %d\n",enemyY[index]);
+			printf(" ");
+	return car;	
+}	
+			
+
+		
+	//-------------------------------------------------------
+	
+	
 Vehicle drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car,int enemyY[3],int index){
 
-	//Inicializa a posição semi-randomica dos carros inimigos
-		if (car.i == ROWS + 1){
-			if(index  == 0){
-				int randPos = rand()%15;
-				car.i = randPos - randPos * 2;
-				enemyY[0] = car.i;
-			}
-		else{
-			car.i = enemyY[index-1] - 15;
-			enemyY[index] = car.i;
-		}
-		int sideRand = rand()%100;
-		if(sideRand<=50)car.j = CARLEFT;
-		if(sideRand>=51)car.j = CARRIGHT;
-		
-	}
-	//-------------------------------------------------------
+	
 	
 	//Desenho dos carros inimigos a partir do topo da matriz
 	if(car.i < ROWS + 1){
