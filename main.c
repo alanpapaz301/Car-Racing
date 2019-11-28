@@ -5,15 +5,10 @@
 int main(){
 	//Inicializações
 	
-	int highScores;
+	int highScores[5];
 	
 	Vehicle car;
-	Vehicle enemyCar1;
-	Vehicle enemyCar2;
-	Vehicle enemyCar3;
-	enemyCar1.i = END;
-	enemyCar2.i = END;
-	enemyCar3.i = END;
+	Vehicle enemyCars[3];
 	car.i = ROWS - 1;
 	car.j = CARMID;
 	char dir = EMPTY;
@@ -23,11 +18,13 @@ int main(){
 	int gameOver = 0;
 	int enemyY[3];
 	speedControl = 5;
-	init(matrix);
+	
 	ShowConsoleCursor(0);
 	//-------------------------------
 	
-	menu();
+	
+	START:menu(enemyCars);
+	init(matrix);
 	for(runTime=0;runTime<=speedControl;runTime++){ 
 
 		//Carro do jogador
@@ -35,13 +32,13 @@ int main(){
 		//------------------------------------------
 		//CarroS oponenteS
 		
-		if(enemyCar1.i == END)enemyCar1 = genEnemyCars(matrix,enemyCar1,enemyY,0);
-		if(enemyCar2.i == END)enemyCar2 = genEnemyCars(matrix,enemyCar2,enemyY,1);
-		if(enemyCar3.i == END)enemyCar3 = genEnemyCars(matrix,enemyCar3,enemyY,2);
+		if(enemyCars[0].i == END)enemyCars[0] = genEnemyCars(matrix,enemyCars[0],enemyY,0);
+		if(enemyCars[1].i == END)enemyCars[1] = genEnemyCars(matrix,enemyCars[1],enemyY,1);
+		if(enemyCars[2].i == END)enemyCars[2] = genEnemyCars(matrix,enemyCars[2],enemyY,2);
 
-		enemyCar1 = drawEnemyCars(matrix,enemyCar1,enemyY,0);
-		enemyCar2 = drawEnemyCars(matrix,enemyCar2,enemyY,1);
-		enemyCar3 = drawEnemyCars(matrix,enemyCar3,enemyY,2);
+		enemyCars[0] = drawEnemyCars(matrix,enemyCars[0],enemyY,0);
+		enemyCars[1] = drawEnemyCars(matrix,enemyCars[1],enemyY,1);
+		enemyCars[2] = drawEnemyCars(matrix,enemyCars[2],enemyY,2);
 		//------------------------------------------
 		
 		
@@ -57,15 +54,15 @@ int main(){
 	   if(runTime==speedControl){
 			control++;
 			runTime = 0;
-			if(enemyCar1.i>=2 && enemyCar1.i<ROWS+1)eraseCar(matrix,enemyCar1);
-			if(enemyCar1.i < ROWS + 2)enemyCar1.i++;
+			if(enemyCars[0].i>=2 && enemyCars[0].i<ROWS+1)eraseCar(matrix,enemyCars[0]);
+			if(enemyCars[0].i < ROWS + 2)enemyCars[0].i++;
 			
 			
-			if(enemyCar2.i>=2 && enemyCar2.i<ROWS+1)eraseCar(matrix,enemyCar2);
-			if(enemyCar2.i < ROWS + 2)enemyCar2.i++;
+			if(enemyCars[1].i>=2 && enemyCars[1].i<ROWS+1)eraseCar(matrix,enemyCars[1]);
+			if(enemyCars[1].i < ROWS + 2)enemyCars[1].i++;
 			
-			if(enemyCar3.i>=2 && enemyCar3.i<ROWS+1)eraseCar(matrix,enemyCar3);
-			if(enemyCar3.i < ROWS + 2)enemyCar3.i++;
+			if(enemyCars[2].i>=2 && enemyCars[2].i<ROWS+1)eraseCar(matrix,enemyCars[2]);
+			if(enemyCars[2].i < ROWS + 2)enemyCars[2].i++;
 			
 		}	
 		//------------------------
@@ -73,6 +70,14 @@ int main(){
 		//leitura da tecla pressionada
 		if(kbhit()) dir=getch();
 		
+		
+		
+		
+		if(dir == 27) {
+			quitGame(enemyCars);
+			dir = EMPTY;
+			goto START;
+		}
 		//movimento a esquerda
 		if(dir == LEFT | dir == LEFT_C){
 			//printf("LEFT!!");

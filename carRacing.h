@@ -24,8 +24,10 @@ typedef struct{
 	int random;
 }Vehicle;
 
-
+void menu(Vehicle enemyCars[3]);
 void init(char matrix[ROWS][COLUMNS]);
+void loadGame(Vehicle enemyCars[3]);
+void quitGame(Vehicle enemyCars[3]);
 void printMatrix(char matrix[ROWS][COLUMNS],int aux);
 void drawCar(char matrix[ROWS][COLUMNS],Vehicle car);
 Vehicle genEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car,int enemyY[3],int index);

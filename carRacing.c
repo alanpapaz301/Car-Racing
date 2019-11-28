@@ -2,18 +2,24 @@
 
 
 
-void menu(){
+void menu(Vehicle enemyCars[3]){
+	system("cls");
 	int option;
+	FILE *carPos;
 	
-	
-	printf("1- Novo jogo\n");
-	printf("2- High scores\n");
-	printf("3- Sair\n");
+	printf("1- Continuar\n");
+	printf("2- Novo jogo\n");
+	printf("3- High scores\n");
+	printf("4- Sair\n");
 	scanf("%d",&option);
 	switch(option){
-		case 1:break;
-		case 2:printf("NOTHING HERE\n");break;
-		case 3:exit(0);break;
+		case 1:	loadGame(enemyCars); break;
+		case 2:	carPos = fopen("enemyY.bin","w");
+				fclose(carPos);
+				loadGame(enemyCars);
+				break;
+		case 3:printf("NOTHING HERE\n");break;
+		case 4:exit(0);break;
 		default:printf("ERROR ERROR ERROR \n");break;
 	}
 	
@@ -35,6 +41,36 @@ void init(char matrix[ROWS][COLUMNS]){
 		}
 	}
 }
+void loadGame(Vehicle enemyCars[3]){
+	int x;
+	FILE *carPosR;
+	carPosR = fopen("enemyY.bin","r+b");
+	int c = fgetc(carPosR);
+	if (c == EOF) {
+		enemyCars[0].i = END;
+		enemyCars[1].i = END;
+		enemyCars[2].i = END;
+	} 
+	else {
+		//ungetc(c, carPos);
+		for(x=0;x<3;x++){
+			fscanf(carPosR,"%d\n",&enemyCars[x].i);
+			fscanf(carPosR,"%d\n",&enemyCars[x].j);
+		}
+	}
+	fclose(carPosR);
+	
+}
+void quitGame(Vehicle enemyCars[3]){
+	int x;
+	FILE *carPosQ;
+	carPosQ = fopen("enemyY.bin","w+b");
+	for(x=0;x<3;x++){
+		fprintf(carPosQ,"%d\n",enemyCars[x].i);
+		fprintf(carPosQ,"%d\n",enemyCars[x].j);
+	}
+	fclose(carPosQ);
+}	
 void printMatrix(char matrix[ROWS][COLUMNS],int aux){
     int i,j;
 
