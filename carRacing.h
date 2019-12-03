@@ -24,14 +24,13 @@ typedef struct{
 	int random;
 }Vehicle;
 
-void menu(Vehicle enemyCars[3]);
+void menu();
 void init(char matrix[ROWS][COLUMNS]);
-void loadGame(Vehicle enemyCars[3]);
 void quitGame(Vehicle enemyCars[3]);
 void printMatrix(char matrix[ROWS][COLUMNS],int aux);
 void drawCar(char matrix[ROWS][COLUMNS],Vehicle car);
 Vehicle genEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car,int enemyY[3],int index);
-Vehicle drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car,int enemyY[3],int index);
+void drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseCar(char matrix[ROWS][COLUMNS],Vehicle car);
-void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car,int control);
+void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseRoad(char matrix[ROWS][COLUMNS]);
