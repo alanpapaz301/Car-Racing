@@ -119,6 +119,7 @@ void drawCar(char matrix[ROWS][COLUMNS],Vehicle car){
 		matrix[car.i-3][car.j] = 178;	
 }
 
+
 int genEnemyCars(int sideRand){
 	int carJ;
 	//Inicializa a posição semi-randomica dos carros inimigos
@@ -126,7 +127,7 @@ int genEnemyCars(int sideRand){
 	if(sideRand>=51)carJ = CARRIGHT;
 
 	return carJ;	
-}	
+}
 	
 
 		

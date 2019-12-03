@@ -4,13 +4,11 @@
 
 int main(){
 	//Inicializações
-	
-	//Pontuação
+	srand(time(0));
 	int highScores[5];
-	int score = 0;
+	int score;
 	char PlayerName[30];
 	char Names[5][30];
-	//-------------------
 	Vehicle car;
 	Vehicle enemyCars[3];
 	enemyCars[0].i = 0;
@@ -25,7 +23,6 @@ int main(){
 	int gameOver = 0;
 	int enemyY[3];
 	speedControl = 4;
-	srand(time(0));
 	int randJ;
 	ShowConsoleCursor(0);
 	//-------------------------------
@@ -37,8 +34,7 @@ int main(){
 	randJ = rand()%100;
 	enemyCars[2].j = genEnemyCars(randJ);
 	
-	
-	menu(enemyCars);
+	menu();
 	init(matrix);
 	for(runTime=0;runTime<=speedControl;runTime++){ 
 
@@ -49,7 +45,6 @@ int main(){
 		
 		
 		if(enemyCars[0].i >= END && enemyCars[2].i > 10){
-
 			enemyCars[0].i = -1;
 		}
 		if(enemyCars[0].i == -1){
@@ -74,7 +69,6 @@ int main(){
 			randJ = rand()%100;
 			enemyCars[2].j = genEnemyCars(randJ);
 		}
-		
 		
 		
 		 drawEnemyCars(matrix,enemyCars[0]);
