@@ -12,7 +12,7 @@ void menu(){
 	printf("\t\t\t\t\t\t4- Sair\n");
 	scanf("%d",&option);
 	switch(option){
-		case 1:	 
+		case 1:	break; 
 		case 2:	break;
 		case 3:printf("\t\t\t\t\t\tNOTHING HERE\n");break;
 		case 4:exit(0);break;
@@ -20,12 +20,30 @@ void menu(){
 	}
 	
 }
-void highScores(int highScores[5],int score, char Names[5][30],char PlayerName[30]){
-	FILE *HighScores;
-	HighScores = fopen("HighScores.bin","w+b");
+void highScores(int HighScores[5],int score, char Names[5][30],char PlayerName[30]){
+	FILE *HighScoreFile;
+	HighScoreFile = fopen("HighScores.bin","w+b");
+	int i,j,aux;
 	
-	
-	
+	//Sorting dos scores
+	for(i=1;i<5;i++){
+		for(j=0;j<4;j++){
+			if(HighScores[j] > HighScores[j+1]){
+					aux = HighScores[j];
+					HighScores[j] = HighScores[j+1];
+					HighScores[j+1] = aux;
+			}
+		}
+	}
+	//----------------------------------------------------
+	for(i=0;i<5;i++){
+		fprintf(HighScoreFile,"%d\n",HighScores[i]);
+	}
+	fclose(HighScoreFile);
+	if(score>HighScores[0]){
+		HighScores[0] = score;
+		highScores(HighScores,score,Names,PlayerName);
+	}
 	
 }
 void init(char matrix[ROWS][COLUMNS]){

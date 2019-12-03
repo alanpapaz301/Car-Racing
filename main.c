@@ -12,8 +12,8 @@ int main(){
 	Vehicle car;
 	Vehicle enemyCars[3];
 	enemyCars[0].i = 0;
-	enemyCars[1].i = -12;
-	enemyCars[2].i = -28;
+	enemyCars[1].i = -10;
+	enemyCars[2].i = -18;
 	car.i = ROWS - 1;
 	car.j = CARMID;
 	char dir = EMPTY;
@@ -22,7 +22,7 @@ int main(){
 	int control = 1;
 	int gameOver = 0;
 	int enemyY[3];
-	speedControl = 2;
+	speedControl = 4;
 	
 	ShowConsoleCursor(0);
 	//-------------------------------
@@ -57,7 +57,7 @@ int main(){
 		
 		 drawEnemyCars(matrix,enemyCars[0]);
 		 drawEnemyCars(matrix,enemyCars[1]);
-		 //drawEnemyCars(matrix,enemyCars[2]);
+		 drawEnemyCars(matrix,enemyCars[2]);
 		//------------------------------------------
 		
 		
@@ -80,8 +80,8 @@ int main(){
 			if(enemyCars[1].i>=0)eraseEnemyCar(matrix,enemyCars[1]);
 			enemyCars[1].i++;
 			
-			//if(enemyCars[2].i>=0)eraseEnemyCar(matrix,enemyCars[2]);
-			//enemyCars[2].i++;
+			if(enemyCars[2].i>=0)eraseEnemyCar(matrix,enemyCars[2]);
+			enemyCars[2].i++;
 			
 			printf("Enemy1: %d\n",enemyCars[0].i);
 			printf("Enemy2: %d\n",enemyCars[1].i);
