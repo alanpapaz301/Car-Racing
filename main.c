@@ -5,15 +5,17 @@
 int main(){
 	//Inicializações
 	
+	//Pontuação
 	int highScores[5];
-	int score;
+	int score = 0;
 	char PlayerName[30];
 	char Names[5][30];
+	//-------------------
 	Vehicle car;
 	Vehicle enemyCars[3];
 	enemyCars[0].i = 0;
 	enemyCars[1].i = -10;
-	enemyCars[2].i = -18;
+	enemyCars[2].i = -20;
 	car.i = ROWS - 1;
 	car.j = CARMID;
 	char dir = EMPTY;
@@ -23,13 +25,19 @@ int main(){
 	int gameOver = 0;
 	int enemyY[3];
 	speedControl = 4;
-	
+	srand(time(0));
+	int randJ;
 	ShowConsoleCursor(0);
 	//-------------------------------
 	
-	enemyCars[0] = genEnemyCars(matrix,enemyCars[0],enemyY,0);
-	enemyCars[1] = genEnemyCars(matrix,enemyCars[1],enemyY,1);
-	enemyCars[2] = genEnemyCars(matrix,enemyCars[2],enemyY,2);
+	randJ = rand()%100;
+	enemyCars[0].j = genEnemyCars(randJ);
+	randJ = rand()%100;
+	enemyCars[1].j = genEnemyCars(randJ);
+	randJ = rand()%100;
+	enemyCars[2].j = genEnemyCars(randJ);
+	
+	
 	menu(enemyCars);
 	init(matrix);
 	for(runTime=0;runTime<=speedControl;runTime++){ 
@@ -40,20 +48,34 @@ int main(){
 		//CarroS oponenteS
 		
 		
-		if(enemyCars[0].i >= END){
-			enemyCars[0] = genEnemyCars(matrix,enemyCars[0],enemyY,0);
-			enemyCars[0].i = 0;
+		if(enemyCars[0].i >= END && enemyCars[2].i > 10){
+
+			enemyCars[0].i = -1;
+		}
+		if(enemyCars[0].i == -1){
+			randJ = rand()%100;
+			enemyCars[0].j = genEnemyCars(randJ);
 		}
 		
-		if(enemyCars[1].i >= END){
-			enemyCars[1] = genEnemyCars(matrix,enemyCars[1],enemyY,1);
-			enemyCars[1].i = 0;
+		
+		if(enemyCars[1].i >= END && enemyCars[0].i > 10){
+			enemyCars[1].i = -1;
+		}
+		if(enemyCars[1].i == -1){
+			randJ = rand()%100;
+			enemyCars[1].j = genEnemyCars(randJ);
 		}
 		
-		if(enemyCars[2].i >= END){
-			enemyCars[2] = genEnemyCars(matrix,enemyCars[2],enemyY,2);
-			enemyCars[2].i = 0;
+		
+		if(enemyCars[2].i >= END && enemyCars[1].i > 10){
+			enemyCars[2].i = -1;
 		}
+		if(enemyCars[2].i == -1){
+			randJ = rand()%100;
+			enemyCars[2].j = genEnemyCars(randJ);
+		}
+		
+		
 		
 		 drawEnemyCars(matrix,enemyCars[0]);
 		 drawEnemyCars(matrix,enemyCars[1]);

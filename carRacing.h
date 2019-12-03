@@ -14,7 +14,7 @@
 #define DOWN 73
 #define DOWN_C 53
 
-#define END ROWS + 1
+#define END ROWS + 2
 #define CARLEFT 4
 #define CARRIGHT 10
 #define CARMID COLUMNS/2
@@ -29,7 +29,7 @@ void init(char matrix[ROWS][COLUMNS]);
 void quitGame(Vehicle enemyCars[3]);
 void printMatrix(char matrix[ROWS][COLUMNS],int aux);
 void drawCar(char matrix[ROWS][COLUMNS],Vehicle car);
-Vehicle genEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car,int enemyY[3],int index);
+int genEnemyCars(int sideRand);
 void drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseCar(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car);
