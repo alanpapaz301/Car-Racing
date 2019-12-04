@@ -14,7 +14,7 @@
 #define DOWN 73
 #define DOWN_C 53
 
-#define END ROWS + 1
+#define END ROWS + 2
 #define CARLEFT 4
 #define CARRIGHT 10
 #define CARMID COLUMNS/2

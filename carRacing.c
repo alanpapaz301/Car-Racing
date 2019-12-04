@@ -6,17 +6,16 @@ void menu(){
 	system("cls");
 	int option;
 
-	printf("\t\t\t\t\t\t1- Continuar\n");
-	printf("\t\t\t\t\t\t2- Novo jogo\n");
-	printf("\t\t\t\t\t\t3- High scores\n");
-	printf("\t\t\t\t\t\t4- Sair\n");
+	printf("\t\t\t\t\t\t1- Novo jogo\n");
+	printf("\t\t\t\t\t\t2- High scores\n");
+	printf("\t\t\t\t\t\t3- Sair\n");
 	scanf("%d",&option);
 	switch(option){
 		case 1:	break; 
-		case 2:	break;
-		case 3:printf("\t\t\t\t\t\tNOTHING HERE\n");break;
-		case 4:exit(0);break;
+		case 2:	printf("\t\t\t\t\t\tNOTHING HERE\n");break;
+		case 3:exit(0);break;
 		default:printf("\t\t\t\t\t\tERROR ERROR ERROR \n");break;
+	
 	}
 	
 }

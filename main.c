@@ -41,9 +41,8 @@ int main(){
 		//Carro do jogador
 		drawCar(matrix,car);
 		//------------------------------------------
+	
 		//CarroS oponenteS
-		
-		
 		if(enemyCars[0].i >= END && enemyCars[2].i > 10){
 			enemyCars[0].i = -1;
 		}
@@ -81,8 +80,7 @@ int main(){
 		printMatrix(matrix,control);
 		eraseRoad(matrix);
 		if(gameOver == 1){
-			printf("PERDEU!");
-			//exit(0);
+			printf("Crashed!");
 		}
 
 	   //Velocidade da animação
@@ -99,9 +97,6 @@ int main(){
 			if(enemyCars[2].i>=0)eraseEnemyCar(matrix,enemyCars[2]);
 			enemyCars[2].i++;
 			
-			printf("Enemy1: %d\n",enemyCars[0].i);
-			printf("Enemy2: %d\n",enemyCars[1].i);
-			printf("Enemy3: %d\n",enemyCars[2].i);
 		}	
 		//------------------------
 
@@ -110,7 +105,6 @@ int main(){
 		
 		//movimento a esquerda
 		if(dir == LEFT | dir == LEFT_C){
-			//printf("LEFT!!");
 			if(matrix[car.i][car.j - 4] != EMPTY)gameOver = 1;
 			if(matrix[car.i-1][car.j - 4] != EMPTY)gameOver = 1;
 			if(matrix[car.i-2][car.j - 4] != EMPTY)gameOver = 1;
@@ -122,19 +116,16 @@ int main(){
 		}	
 		//movimento a direita     
 		if(dir == RIGHT | dir == RIGHT_C){
-				//printf("RIGHT!!");
-				eraseCar(matrix,car);
-				car.j = CARRIGHT;
-				dir = EMPTY;
+			if(matrix[car.i][car.j + 4] != EMPTY)gameOver = 1;
+			if(matrix[car.i-1][car.j + 4] != EMPTY)gameOver = 1;
+			if(matrix[car.i-2][car.j + 4] != EMPTY)gameOver = 1;
+			if(matrix[car.i-3][car.j + 4] != EMPTY)gameOver = 1;
+			eraseCar(matrix,car);
+			car.j = CARRIGHT;
+			dir = EMPTY;
 			   
 		}
 		
-		/*
-		if(dir == 's' | dir == 'S'){
-			turbo = 1;
-			//dir = EMPTY;
-		}
-		*/
 	}
 	
 
