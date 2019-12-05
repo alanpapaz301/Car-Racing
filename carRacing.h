@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <time.h>
+#include <string.h>
 //Configuração das dimensões da matriz principal do jogo
 #define COLUMNS 15
 #define ROWS 25
@@ -34,3 +35,4 @@ void drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseCar(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseRoad(char matrix[ROWS][COLUMNS]);
+void highScores(int HighScores[5],int score, char Names[5][30],char PlayerName[30]);

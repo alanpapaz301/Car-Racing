@@ -5,10 +5,19 @@
 int main(){
 	//Inicializações
 	srand(time(0));
-	int highScores[5];
-	int score;
+	int highScoresVet[5] = {0,0,0,0,0};
+	char Names[5][30] = {
+		"FULANO",
+		"FULANO",
+		"FULANO",
+		"FULANO",
+		"FULANO",
+	};
+	
+	
+	int score = 0;
 	char PlayerName[30];
-	char Names[5][30];
+	
 	Vehicle car;
 	Vehicle enemyCars[3];
 	enemyCars[0].i = 0;
@@ -21,8 +30,7 @@ int main(){
 	int speedControl,runTime;
 	int control = 1;
 	int gameOver = 0;
-	int enemyY[3];
-	speedControl = 4;
+	speedControl = 7;
 	int randJ;
 	ShowConsoleCursor(0);
 	//-------------------------------
@@ -34,10 +42,11 @@ int main(){
 	randJ = rand()%100;
 	enemyCars[2].j = genEnemyCars(randJ);
 	
-	menu();
+	START:menu(PlayerName);
 	init(matrix);
 	for(runTime=0;runTime<=speedControl;runTime++){ 
-
+		
+		if(score > 8000)speedControl = 4;
 		//Carro do jogador
 		drawCar(matrix,car);
 		//------------------------------------------
@@ -79,24 +88,30 @@ int main(){
 		gotoxy(0,0);
 		printMatrix(matrix,control);
 		eraseRoad(matrix);
+		printf("\t\t\t\t\tSCORE: %d\n",score);
 		if(gameOver == 1){
-			printf("Crashed!");
+			system("cls");
+			printf("\t\t\t\t\tGAME OVER!\n");
+			highScores(highScoresVet,score,Names,PlayerName);
+			system("pause");
+			goto START;
+			//printf("Crashed!");
 		}
 
 	   //Velocidade da animação
 	   if(runTime==speedControl){
 			control++;
 			runTime = 0;
-			if(enemyCars[0].i>=0)eraseEnemyCar(matrix,enemyCars[0]);
+			eraseEnemyCar(matrix,enemyCars[0]);
 			enemyCars[0].i++;
 			
 			
-			if(enemyCars[1].i>=0)eraseEnemyCar(matrix,enemyCars[1]);
+			eraseEnemyCar(matrix,enemyCars[1]);
 			enemyCars[1].i++;
 			
-			if(enemyCars[2].i>=0)eraseEnemyCar(matrix,enemyCars[2]);
+			eraseEnemyCar(matrix,enemyCars[2]);
 			enemyCars[2].i++;
-			
+			score+=100;
 		}	
 		//------------------------
 

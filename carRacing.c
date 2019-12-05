@@ -2,7 +2,7 @@
 
 
 
-void menu(){
+void menu(char PlayerName[30]){
 	system("cls");
 	int option;
 
@@ -23,12 +23,16 @@ void highScores(int HighScores[5],int score, char Names[5][30],char PlayerName[3
 	FILE *HighScoreFile;
 	HighScoreFile = fopen("HighScores.bin","w+b");
 	int i,j,aux;
+	char auxName[30];
 	
 	//Sorting dos scores
 	for(i=1;i<5;i++){
 		for(j=0;j<4;j++){
 			if(HighScores[j] > HighScores[j+1]){
 					aux = HighScores[j];
+					strcpy(auxName,Names[j]);
+					strcpy(Names[j],Names[j+1]);
+					strcpy(Names[j+1],auxName);
 					HighScores[j] = HighScores[j+1];
 					HighScores[j+1] = aux;
 			}
@@ -41,6 +45,7 @@ void highScores(int HighScores[5],int score, char Names[5][30],char PlayerName[3
 	fclose(HighScoreFile);
 	if(score>HighScores[0]){
 		HighScores[0] = score;
+		printf("Novo High Score!\n");
 		highScores(HighScores,score,Names,PlayerName);
 	}
 	
@@ -56,17 +61,6 @@ void init(char matrix[ROWS][COLUMNS]){
 		}
 	}
 }
-
-void quitGame(Vehicle enemyCars[3]){
-	int x;
-	FILE *carPosQ;
-	carPosQ = fopen("enemyY.bin","w+b");
-	for(x=0;x<3;x++){
-		fprintf(carPosQ,"%d\n",enemyCars[x].i);
-		fprintf(carPosQ,"%d\n",enemyCars[x].j);
-	}
-	fclose(carPosQ);
-}	
 void printMatrix(char matrix[ROWS][COLUMNS],int aux){
     int i,j;
 
@@ -177,15 +171,15 @@ void eraseCar(char matrix[ROWS][COLUMNS],Vehicle car){
 }
 	
 void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car){
-		if(car.i <= ROWS - 1){	
+		if(car.i <= ROWS - 1 &&car.i >= 0){	
 			matrix[car.i][car.j+1] = EMPTY;
 			matrix[car.i][car.j+2] = EMPTY;
 			matrix[car.i][car.j-1] = EMPTY;
 			matrix[car.i][car.j-2] = EMPTY;
 		}
-		if(car.i - 1 <=ROWS - 1)matrix[car.i-1][car.j] = EMPTY;
+		if(car.i - 1 <= ROWS - 1 && car.i - 1 >= 0)matrix[car.i-1][car.j] = EMPTY;
 
-		if(car.i - 2 <=ROWS - 1){
+		if(car.i - 2 <=ROWS - 1 && car.i - 2 >= 0){
 
 			matrix[car.i-2][car.j] = EMPTY;
 			matrix[car.i-2][car.j+1] = EMPTY;
@@ -193,7 +187,7 @@ void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car){
 			matrix[car.i-2][car.j-1] = EMPTY;
 			matrix[car.i-2][car.j-2] = EMPTY;
 		}
-		if(car.i - 3 <= ROWS - 1)matrix[car.i-3][car.j] = EMPTY;
+		if(car.i - 3 <= ROWS - 1 && car.i - 3 >= 0)matrix[car.i-3][car.j] = EMPTY;
 }	
 
 
