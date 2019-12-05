@@ -42,7 +42,7 @@ int main(){
 	randJ = rand()%100;
 	enemyCars[2].j = genEnemyCars(randJ);
 	
-	START:menu(PlayerName);
+	START:menu(highScoresVet,score,Names,PlayerName);
 	init(matrix);
 	for(runTime=0;runTime<=speedControl;runTime++){ 
 		
@@ -92,7 +92,7 @@ int main(){
 		if(gameOver == 1){
 			system("cls");
 			printf("\t\t\t\t\tGAME OVER!\n");
-			highScores(highScoresVet,score,Names,PlayerName);
+			highScoreSort(highScoresVet,score,Names,PlayerName);
 			system("pause");
 			goto START;
 			//printf("Crashed!");

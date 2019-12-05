@@ -2,7 +2,7 @@
 
 
 
-void menu(char PlayerName[30]){
+void menu(int HighScores[5],int score, char Names[5][30],char PlayerName[30]){
 	system("cls");
 	int option;
 
@@ -12,14 +12,17 @@ void menu(char PlayerName[30]){
 	scanf("%d",&option);
 	switch(option){
 		case 1:	break; 
-		case 2:	printf("\t\t\t\t\t\tNOTHING HERE\n");break;
+		case 2:	printScores(HighScores,Names);
+		system("pause");
+		menu(HighScores,score,Names,PlayerName);
+		break;
 		case 3:exit(0);break;
 		default:printf("\t\t\t\t\t\tERROR ERROR ERROR \n");break;
 	
 	}
 	
 }
-void highScores(int HighScores[5],int score, char Names[5][30],char PlayerName[30]){
+void highScoreSort(int HighScores[5],int score, char Names[5][30],char PlayerName[30]){
 	FILE *HighScoreFile;
 	HighScoreFile = fopen("HighScores.bin","w+b");
 	int i,j,aux;
@@ -46,10 +49,21 @@ void highScores(int HighScores[5],int score, char Names[5][30],char PlayerName[3
 	if(score>HighScores[0]){
 		HighScores[0] = score;
 		printf("Novo High Score!\n");
-		highScores(HighScores,score,Names,PlayerName);
+		highScoreSort(HighScores,score,Names,PlayerName);
 	}
 	
 }
+void printScores(int HighScores[5],char Names[5][30]){
+	int i;
+	for(i = 0; i < 5; i++){
+		system("cls");
+		printf("\t\t\t\t\tNome: %s  Pontos: %d\n",Names[i],HighScores[i]);
+	}
+}
+
+		
+		
+		
 void init(char matrix[ROWS][COLUMNS]){
 	int i,j;
 	int x = 2;

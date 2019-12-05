@@ -35,4 +35,5 @@ void drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseCar(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseRoad(char matrix[ROWS][COLUMNS]);
-void highScores(int HighScores[5],int score, char Names[5][30],char PlayerName[30]);
+void highScoreSort(int HighScores[5],int score, char Names[5][30],char PlayerName[30]);
+void printScores(int HighScores[5],char Names[5][30]);
