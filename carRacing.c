@@ -1,70 +1,7 @@
 #include "carRacing.h"
 
 
-
-void menu(int HighScores[5],int score, char Names[5][30],char PlayerName[30]){
-	system("cls");
-	int option;
-
-	printf("\t\t\t\t\t\t1- Novo jogo\n");
-	printf("\t\t\t\t\t\t2- High scores\n");
-	printf("\t\t\t\t\t\t3- Sair\n");
-	scanf("%d",&option);
-	switch(option){
-		case 1:	break; 
-		case 2:	printScores(HighScores,Names);
-		system("pause");
-		menu(HighScores,score,Names,PlayerName);
-		break;
-		case 3:exit(0);break;
-		default:printf("\t\t\t\t\t\tERROR ERROR ERROR \n");break;
-	
-	}
-	
-}
-void highScoreSort(int HighScores[5],int score, char Names[5][30],char PlayerName[30]){
-	FILE *HighScoreFile;
-	HighScoreFile = fopen("HighScores.bin","w+b");
-	int i,j,aux;
-	char auxName[30];
-	
-	//Sorting dos scores
-	for(i=1;i<5;i++){
-		for(j=0;j<4;j++){
-			if(HighScores[j] > HighScores[j+1]){
-					aux = HighScores[j];
-					strcpy(auxName,Names[j]);
-					strcpy(Names[j],Names[j+1]);
-					strcpy(Names[j+1],auxName);
-					HighScores[j] = HighScores[j+1];
-					HighScores[j+1] = aux;
-			}
-		}
-	}
-	//----------------------------------------------------
-	for(i=0;i<5;i++){
-		fprintf(HighScoreFile,"%d\n",HighScores[i]);
-	}
-	fclose(HighScoreFile);
-	if(score>HighScores[0]){
-		HighScores[0] = score;
-		printf("Novo High Score!\n");
-		highScoreSort(HighScores,score,Names,PlayerName);
-	}
-	
-}
-void printScores(int HighScores[5],char Names[5][30]){
-	int i;
-	for(i = 0; i < 5; i++){
-		system("cls");
-		printf("\t\t\t\t\tNome: %s  Pontos: %d\n",Names[i],HighScores[i]);
-	}
-}
-
-		
-		
-		
-void init(char matrix[ROWS][COLUMNS]){
+void init(char matrix[ROWS][COLUMNS],Game *racing){
 	int i,j;
 	int x = 2;
 	for(i = 0; i<ROWS;i++){
@@ -74,7 +11,137 @@ void init(char matrix[ROWS][COLUMNS]){
 			matrix[i][0] = '*';
 		}
 	}
+	racing->dir = EMPTY;
+	racing->speedControl = 7;
+	racing->runTime;
+	racing->control = 1;
+	racing->gameOver = 0;
+	racing->score = 0;
+	
+
+
 }
+void menu(Game *racing){
+	system("cls");
+	int option;
+	if(racing->score == 0){
+		printf("\t\t\t\t\t\t1- Novo jogo\n");
+		printf("\t\t\t\t\t\t2- High scores\n");
+		printf("\t\t\t\t\t\t3- Sair\n");
+		scanf("%d",&option);
+		
+			
+		switch(option){
+			case 1:init(racing->matrix,racing);
+			printf("\t\t\t\t\t\tDigite seu nome\n");
+			scanf("%s",&racing->PlayerName);
+			break; 
+			case 2:	printScores(racing->HighScores,racing->Names);
+			system("pause");
+			menu(racing);
+			break;
+			case 3:exit(0);break;
+			default:printf("\t\t\t\t\t\tERROR ERROR ERROR \n");break;
+		
+		}
+	}
+	if(racing->score > 0){
+		printf("\t\t\t\t\t\t1- Continuar\n");
+		printf("\t\t\t\t\t\t2- Novo jogo\n");
+		printf("\t\t\t\t\t\t3- High scores\n");
+		printf("\t\t\t\t\t\t4- Sair\n");
+		scanf("%d",&option);
+	
+		
+		switch(option){
+			case 1:break;; 
+			case 2:	init(racing->matrix,racing);	
+			printf("\t\t\t\t\t\tDigite seu nome\n");
+			scanf("%s",&racing->PlayerName);
+			break; 
+
+			case 3:printScores(racing->HighScores,racing->Names);
+			system("pause");
+			menu(racing);
+			break;
+			case 4: exit(0);break;
+			default:printf("\t\t\t\t\t\tERROR ERROR ERROR \n");break;
+	
+		}
+	}
+	
+	
+	
+	
+}
+void readScores(char Names[5][30],int HighScores[5]){
+	int i;
+	FILE *HighScoreFile;
+	HighScoreFile = fopen("HighScores.txt","r");
+	for(i=0;i<5;i++){
+		fscanf(HighScoreFile,"%s",&Names[i]);
+		fscanf(HighScoreFile,"%d",&HighScores[i]);
+	}
+	fclose(HighScoreFile);
+}
+void highScoreSort(Game *racing){
+	FILE *HighScoreFile;
+	HighScoreFile = fopen("HighScores.txt","w+");
+	int i,j,aux;
+	char auxName[30];
+	
+	//Sorting dos scores
+	for(i=1;i<5;i++){
+		for(j=0;j<4;j++){
+			if(racing->HighScores[j] > racing->HighScores[j+1]){
+					aux = racing->HighScores[j];
+					strcpy(auxName,racing->Names[j]);
+					strcpy(racing->Names[j],racing->Names[j+1]);
+					strcpy(racing->Names[j+1],auxName);
+					racing->HighScores[j] = racing->HighScores[j+1];
+					racing->HighScores[j+1] = aux;
+			}
+		}
+	}
+	//----------------------------------------------------
+
+	
+	if(racing->score>racing->HighScores[0]){
+		racing->HighScores[0] = racing->score;
+		strcpy(racing->Names[0],racing->PlayerName);
+		printf("Novo High Score!\n");
+		
+		//Sorting dos scores após inserção de novo score
+		for(i=1;i<5;i++){
+			for(j=0;j<4;j++){
+				if(racing->HighScores[j] > racing->HighScores[j+1]){
+						aux = racing->HighScores[j];
+						strcpy(auxName,racing->Names[j]);
+						strcpy(racing->Names[j],racing->Names[j+1]);
+						strcpy(racing->Names[j+1],auxName);
+						racing->HighScores[j] = racing->HighScores[j+1];
+						racing->HighScores[j+1] = aux;
+				}
+			}
+		}
+		//----------------------------------------------------
+	}
+	for(i=0;i<5;i++){
+		fprintf(HighScoreFile,"%s\n",racing->Names[i]);
+		fprintf(HighScoreFile,"%d\n",racing->HighScores[i]);
+	}
+	fclose(HighScoreFile);
+}
+void printScores(int HighScores[5],char Names[5][30]){
+	int i;
+	system("cls");
+	for(i = 0; i < 5; i++){
+		
+		printf("\t\t\t\t\tNome: %s  Pontos: %d\n",Names[4 - i],HighScores[4 - i]);
+	}
+}
+
+		
 void printMatrix(char matrix[ROWS][COLUMNS],int aux){
     int i,j;
 

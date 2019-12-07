@@ -7,6 +7,7 @@
 #define COLUMNS 15
 #define ROWS 25
 #define EMPTY 32
+#define ESC 27
 
 #define LEFT 97
 #define RIGHT 100
@@ -25,8 +26,23 @@ typedef struct{
 	int random;
 }Vehicle;
 
-void menu();
-void init(char matrix[ROWS][COLUMNS]);
+
+typedef struct{
+	char dir;
+	int runTime;
+	int control;
+	int gameOver;
+	int speedControl;
+	int randJ;
+	char matrix[ROWS][COLUMNS];
+	int score;
+	int HighScores[5];
+	char Names[5][30];
+	char PlayerName[30];
+}Game;
+
+void menu(Game *racing);
+void init(char matrix[ROWS][COLUMNS], Game *racing);
 void quitGame(Vehicle enemyCars[3]);
 void printMatrix(char matrix[ROWS][COLUMNS],int aux);
 void drawCar(char matrix[ROWS][COLUMNS],Vehicle car);
@@ -35,5 +51,6 @@ void drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseCar(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car);
 void eraseRoad(char matrix[ROWS][COLUMNS]);
-void highScoreSort(int HighScores[5],int score, char Names[5][30],char PlayerName[30]);
+void readScores(char Names[5][30],int HighScores[5]);
+void highScoreSort(Game *racing);
 void printScores(int HighScores[5],char Names[5][30]);
