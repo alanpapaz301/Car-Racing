@@ -23,7 +23,6 @@
 typedef struct{
 	int i;
 	int j;
-	int random;
 }Vehicle;
 
 
@@ -54,3 +53,4 @@ void eraseRoad(char matrix[ROWS][COLUMNS]);
 void readScores(char Names[5][30],int HighScores[5]);
 void highScoreSort(Game *racing);
 void printScores(int HighScores[5],char Names[5][30]);
+void checkCollision(Vehicle car,Vehicle enemies[3], Game *racing);

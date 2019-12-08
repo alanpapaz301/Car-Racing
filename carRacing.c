@@ -1,6 +1,6 @@
 #include "carRacing.h"
 
-
+//inicializa matriz vazia e variaveis do jogo
 void init(char matrix[ROWS][COLUMNS],Game *racing){
 	int i,j;
 	int x = 2;
@@ -11,16 +11,16 @@ void init(char matrix[ROWS][COLUMNS],Game *racing){
 			matrix[i][0] = '*';
 		}
 	}
-	racing->dir = EMPTY;
-	racing->speedControl = 7;
-	racing->runTime;
+	racing->dir = 0;
+	racing->speedControl = 8;
+	racing->runTime = 0;
 	racing->control = 1;
 	racing->gameOver = 0;
 	racing->score = 0;
 	
-
-
 }
+//----------------------------------------------------
+
 void menu(Game *racing){
 	system("cls");
 	int option;
@@ -33,6 +33,7 @@ void menu(Game *racing){
 			
 		switch(option){
 			case 1:init(racing->matrix,racing);
+			system("cls");
 			printf("\t\t\t\t\t\tDigite seu nome\n");
 			scanf("%s",&racing->PlayerName);
 			break; 
@@ -55,7 +56,8 @@ void menu(Game *racing){
 		
 		switch(option){
 			case 1:break;; 
-			case 2:	init(racing->matrix,racing);	
+			case 2:	init(racing->matrix,racing);
+			system("cls");
 			printf("\t\t\t\t\t\tDigite seu nome\n");
 			scanf("%s",&racing->PlayerName);
 			break; 
@@ -74,19 +76,24 @@ void menu(Game *racing){
 	
 	
 }
+
+//leitura de arquivo de pontuação
 void readScores(char Names[5][30],int HighScores[5]){
 	int i;
 	FILE *HighScoreFile;
-	HighScoreFile = fopen("HighScores.txt","r");
+	HighScoreFile = fopen("HighScores.bin","r+b");
 	for(i=0;i<5;i++){
 		fscanf(HighScoreFile,"%s",&Names[i]);
 		fscanf(HighScoreFile,"%d",&HighScores[i]);
 	}
 	fclose(HighScoreFile);
 }
+//-------------------------------------------------
+
+//Sorting dos scores e gravação no arquivo
 void highScoreSort(Game *racing){
 	FILE *HighScoreFile;
-	HighScoreFile = fopen("HighScores.txt","w+");
+	HighScoreFile = fopen("HighScores.bin","w+b");
 	int i,j,aux;
 	char auxName[30];
 	
@@ -109,7 +116,7 @@ void highScoreSort(Game *racing){
 	if(racing->score>racing->HighScores[0]){
 		racing->HighScores[0] = racing->score;
 		strcpy(racing->Names[0],racing->PlayerName);
-		printf("Novo High Score!\n");
+		printf("\t\t\t\t\tNovo High Score!\n");
 		
 		//Sorting dos scores após inserção de novo score
 		for(i=1;i<5;i++){
@@ -126,12 +133,19 @@ void highScoreSort(Game *racing){
 		}
 		//----------------------------------------------------
 	}
+	
+	//Gravação no arquivo de scores
 	for(i=0;i<5;i++){
 		fprintf(HighScoreFile,"%s\n",racing->Names[i]);
 		fprintf(HighScoreFile,"%d\n",racing->HighScores[i]);
 	}
 	fclose(HighScoreFile);
+	//-------------------------------------------------------
 }
+//----------------------------------------------------------------------------
+
+
+//Exibição dos scores na tela
 void printScores(int HighScores[5],char Names[5][30]){
 	int i;
 	system("cls");
@@ -140,7 +154,7 @@ void printScores(int HighScores[5],char Names[5][30]){
 		printf("\t\t\t\t\tNome: %s  Pontos: %d\n",Names[4 - i],HighScores[4 - i]);
 	}
 }
-
+//-----------------------------------------------------------------------------------
 		
 void printMatrix(char matrix[ROWS][COLUMNS],int aux){
     int i,j;
@@ -169,7 +183,8 @@ void printMatrix(char matrix[ROWS][COLUMNS],int aux){
         printf("\n");
 		
 		}
-}	
+}
+	
 void eraseRoad(char matrix[ROWS][COLUMNS]){
 	int i,j;
 	for(i = 0; i<ROWS;i++){
@@ -193,26 +208,23 @@ void drawCar(char matrix[ROWS][COLUMNS],Vehicle car){
 		matrix[car.i-3][car.j] = 178;	
 }
 
-
+//Decide em qual lado aparecem os carros oponentes aleatoriamente
 int genEnemyCars(int sideRand){
 	int carJ;
-	//Inicializa a posição semi-randomica dos carros inimigos
+
 	if(sideRand<=50)carJ = CARLEFT;
 	if(sideRand>=51)carJ = CARRIGHT;
 
 	return carJ;	
 }
+//-------------------------------------------------------
 	
-
-		
-	//-------------------------------------------------------
-	
-	
+//Desenho dos carros inimigos a partir do topo da matriz
 void drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car){
 
 	
 	
-	//Desenho dos carros inimigos a partir do topo da matriz
+	
 	
 		if(car.i - 3 >= 0 && car.i - 3 <= ROWS - 1)matrix[car.i-3][car.j] = 178;
 		if(car.i - 2 >= 0 && car.i - 2 <= ROWS - 1){
@@ -229,13 +241,14 @@ void drawEnemyCars(char matrix[ROWS][COLUMNS],Vehicle car){
 			matrix[car.i][car.j-1] = 178;
 			matrix[car.i][car.j-2] = 178;
 		}
-	//------------------------------------------------------
+	
 	
 	
 	
 	
 	
 }
+//----------------------------------------------------------------------------------
 
 void eraseCar(char matrix[ROWS][COLUMNS],Vehicle car){
 		matrix[car.i][car.j+1] = EMPTY;
@@ -250,7 +263,8 @@ void eraseCar(char matrix[ROWS][COLUMNS],Vehicle car){
 		matrix[car.i-2][car.j-2] = EMPTY;
 		matrix[car.i-3][car.j] = EMPTY;
 }
-	
+
+//Apaga os carros oponentes durante a animação, começando da posição 0 até o carro sumir da pista	
 void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car){
 		if(car.i <= ROWS - 1 &&car.i >= 0){	
 			matrix[car.i][car.j+1] = EMPTY;
@@ -269,8 +283,13 @@ void eraseEnemyCar(char matrix[ROWS][COLUMNS],Vehicle car){
 			matrix[car.i-2][car.j-2] = EMPTY;
 		}
 		if(car.i - 3 <= ROWS - 1 && car.i - 3 >= 0)matrix[car.i-3][car.j] = EMPTY;
-}	
-
-
-
+}
+//--------------------------------------------------------------------------------------------------	
+void checkCollision(Vehicle car,Vehicle enemies[3], Game *racing){
+		int i;
+		for(i = 0; i<3;i++){
+			if(car.i - 3 == enemies[i].i && car.j == enemies[i].j)racing->gameOver = 1;
+			else if(car.i - 3 == enemies[i].i && car.j == CARMID)racing->gameOver = 1; 
+		}
+}
 			
